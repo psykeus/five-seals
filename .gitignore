@@ -1,0 +1,4 @@
+build/*
+!build/env.sh
+dist/*.dbg
+dist/*.zip

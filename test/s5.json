@@ -1,0 +1,8 @@
+[{"frames":90},{"frames":60,"press":["start"]},{"frames":40},{"frames":30,"press":["a"]},{"frames":20},
+ {"poke":{"_cp_scr":25,"_cp_x":112,"_cp_y":128,"_state":2,"_arts":3,"_art_sel":1},"frames":120},
+ {"frames":60,"press":["start"]},{"frames":40},{"frames":30,"press":["a"]},{"frames":30,"poke":{"_lag_frames":0}},
+ {"frames":20,"hold":["up","a"]},{"frames":20,"hold":["up"],"press":["a"]},{"frames":20,"hold":["left","b"]},{"frames":20,"press":["a"]},{"frames":40,"hold":["right"]},
+ {"frames":20,"press":["a"]},{"frames":20,"press":["b"]},{"frames":60,"hold":["down"]},{"frames":30,"press":["a"]},
+ {"frames":1,"peek":["_lag_frames","_php","_state","_mana"],"shot":"40_trial"},
+ {"poke":{"_lag_frames":0,"_veil_on":1},"frames":200,"peek":["_lag_frames","_php","_state"],"shot":"41_trial_veil"}
+]

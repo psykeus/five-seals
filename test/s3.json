@@ -1,0 +1,9 @@
+[{"frames":90},{"frames":60,"press":["start"]},{"frames":40},{"frames":30,"press":["a"]},{"frames":20},
+ {"poke":{"_cp_scr":23,"_cp_x":48,"_cp_y":64,"_state":2,"_arts":3,"_art_sel":1},"frames":120},
+ {"frames":60,"press":["start"]},{"frames":40},{"frames":30,"press":["a"]},{"frames":30,"shot":"20_temple"},
+ {"frames":2,"hold":["up"]},{"frames":2,"press":["a"]},{"frames":4,"shot":"21_bolt"},{"frames":30},
+ {"frames":112,"hold":["right"]},{"frames":2,"hold":["up"]},{"frames":2,"press":["a"]},{"frames":40,"shot":"22_lit"},
+ {"frames":30,"peek":["_cur","_px","_py","_state","_flags+2"]},
+ {"frames":66,"hold":["left"]},{"frames":20,"hold":["up"]},{"frames":120,"hold":["up"],"shot":"23_north"},
+ {"frames":10,"peek":["_cur","_px","_py","_state"]}
+]

@@ -1,0 +1,6 @@
+[{"frames":90,"shot":"01_title"},
+ {"frames":60,"press":["start"]},
+ {"frames":40,"shot":"02_start_msg"},
+ {"frames":30,"press":["a"]},
+ {"frames":20,"shot":"03_sanctum"},
+ {"frames":60,"hold":["right"],"shot":"04_walk"}]

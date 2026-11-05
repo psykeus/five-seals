@@ -1,0 +1,609 @@
+# THE FIVE SEALS - world data
+# -------------------------------------------------------------
+# Map legend (16 x 11 metatiles per screen):
+#   .  grass          ,  path          T  tree         R  rock
+#   ~  water / lava   #  bramble (burn) C  cave (warp)  V  veil wall (rock)
+#   =  veil bridge    A  statue/sign   W  wall (mossy outdoors, brick in temple)
+#   F  floor          D  door (shut)   O  door (open)  B  brazier (unlit)
+#   L  brazier (lit)  S  stairs (warp) v  veil wall (brick)  X  void
+#   "  flowers
+#
+# Screen keywords:
+#   pal <set>                 palette set (OW_ROCK OW_WATER TEMPLE_WALL TEMPLE_LAVA CAVE)
+#   msg <NAME> [onenter]      message for statues; onenter = show once on first visit
+#   shrine <x> <y>            checkpoint + autosave, respawn tile
+#   enemy <type> <x> <y>      blob | stalker | shade | boss
+#   item <type> <x> <y>       tome | sigil | heart | seal
+#   warp <area> <gx> <gy> <x> <y>   target of cave/stairs tiles on this screen
+#   cond clear|braziers|flag <area> <gx> <gy>   what opens shut doors (D)
+#   solvemsg <NAME>           message shown when the room is solved
+# Edges: walking off an edge enters the neighbouring screen in the same area grid.
+# -------------------------------------------------------------
+
+@msg INTRO
+THE FIVE TEMPLES ARE SEALED
+AND THE ARTS FADE. ONLY YOU
+STILL SEE THROUGH THE VEIL.
+A:CAST  B:STAFF  SELECT:ART
+@end
+
+@msg VEILGATE
+THE STONE TO THE NORTH IS A
+LIE. CAST VEIL, THEN WALK
+THROUGH WHAT IS NOT THERE.
+@end
+
+@msg TEMPLEGATE
+THE EMBER TEMPLE. ITS SEAL
+WAITS BEYOND THE FLAME.
+@end
+
+@msg TOME
+YOU LEARNED THE ART OF FIRE!
+BURN BRAMBLES AND LIGHT
+BRAZIERS. PRESS SELECT TO
+CHANGE YOUR ART.
+@end
+
+@msg TRIAL
+TRIAL OF FLAME. DEFEAT ALL
+WHO WAIT HERE TO MASTER
+THE ART.
+@end
+
+@msg SIGIL
+FIRE MASTERY II!
+YOUR FLAME BURNS HOTTER,
+COSTS LESS, AND FLIES FAST.
+@end
+
+@msg HEART
+A HEART VESSEL! YOUR LIFE
+GROWS STRONGER.
+@end
+
+@msg DOOR
+SOMEWHERE NEARBY, A GREAT
+DOOR GRINDS OPEN.
+@end
+
+@msg SEAL
+THE EMBER SEAL IS BROKEN!
+THE ART OF FIRE IS FREE,
+AND YOUR LIFE GROWS.
+@end
+
+@msg ISLE
+THE LAKE KEEPS A SECRET
+PATH. ONLY THE VEILED EYE
+MAY WALK IT.
+@end
+
+@msg SHADES
+SHADES DWELL BEYOND THE
+VEIL. SEE THEM, AND YOU
+CAN STRIKE THEM.
+@end
+
+@msg RUINS
+EAST: THE EMBER TEMPLE.
+WEST: A TRIAL FOR THOSE
+WHO BEAR THE FLAME.
+@end
+
+@msg BRAZIERS
+COLD BRAZIERS GUARD THE
+NORTH DOOR. THEY HUNGER
+FOR FLAME.
+@end
+
+@msg MANA
+MAGIC COSTS MANA. IT
+RETURNS SLOWLY WHILE THE
+VEIL IS DOWN.
+@end
+
+@msg BOSS
+THE GALE WARDEN GUARDS THE
+SEAL. ONLY FLAME CAN
+WOUND IT.
+@end
+
+# ============================================================ OVERWORLD (4x4)
+
+@screen ow 0 0
+pal OW_ROCK
+enemy blob 5 3
+enemy blob 10 8
+enemy shade 7 5
+map
+TTTTTTTTTTTTTTTT
+TT..T....T...TTT
+T...........T..T
+T..TT...TT.....T
+T..TT...TT......
+T...............
+T....T....TT....
+TT.......TT....T
+T...T..........T
+TT....T...T...TT
+TTTTTTT..TTTTTTT
+
+@screen ow 1 0
+pal OW_ROCK
+enemy blob 4 3
+enemy blob 11 7
+map
+TTTTTTTTTTTTTTTT
+TTT...TTTT...TTT
+T.....T..T.....T
+T..T.........T.T
+...T..,,,,..T...
+......,..,......
+....T.,,,,..T...
+T.......,......T
+T..T."..,...T..T
+TT......,.....TT
+TTTTTTT,,TTTTTTT
+
+@screen ow 2 0
+pal OW_ROCK
+enemy stalker 6 3
+enemy blob 10 6
+map
+RRRRRRRRRRRRRRRR
+RR....RRR....RRR
+R...R.....R...RR
+R.......R.....RR
+.....RR.......RR
+.........R....RR
+.....R........RR
+R..R.....RR...RR
+R......R.......R
+RR.R...........R
+RRRRRRR..RRRRRRR
+
+@screen ow 3 0
+pal OW_ROCK
+msg TEMPLEGATE
+enemy stalker 4 6
+enemy blob 11 6
+warp temple 1 2 7 8
+map
+RRRRRRRRRRRRRRRR
+RRRWWWWCWWWWWRRR
+RRRWWWW,WWWWWRRR
+RR.....,.....RRR
+R......,......RR
+R..A...,.......R
+R......,.......R
+R......,.......R
+RR.....,......RR
+RRR....,.....RRR
+RRRRRRR,,RRRRRRR
+
+@screen ow 0 1
+pal OW_ROCK
+msg MANA
+enemy blob 4 1
+enemy blob 12 8
+map
+TTTTTTT..TTTTTTT
+T..............T
+T..~~~~~~~~~...T
+T.~~~~~~~~~~~..T
+T.~~~~~~~~~~~...
+T.~~~~~~~~~~~...
+T..~~~~~~~~~....
+T...~~~~~~~....T
+T..............T
+TT.A...........T
+TTTTTTT..TTTTTTT
+
+@screen ow 1 1
+pal OW_ROCK
+enemy blob 3 3
+enemy blob 12 8
+map
+TTTTTTT,,TTTTTTT
+T......,,......T
+T..T...,,...T..T
+T......,,......T
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+.......,,.......
+T..T...,,...T..T
+T......,,......T
+T......,,......T
+TTTTTTT,,TTTTTTT
+
+@screen ow 2 1
+pal OW_ROCK
+msg RUINS
+enemy stalker 5 5
+enemy blob 7 2
+map
+RRRRRRR..RRRRRRR
+R..............R
+R.WWW.....WWW..R
+R.W.........W..R
+,,,,,,,,,,,,,,,,
+,.......A.......
+...............,
+R.W.........W..R
+R.WWW.....WWW..R
+R..............R
+RRRRRRR..RRRRRRR
+
+@screen ow 3 1
+pal OW_ROCK
+msg VEILGATE
+enemy blob 5 6
+enemy blob 11 4
+map
+RRRRRRRVVRRRRRRR
+RRRRRRR..RRRRRRR
+RR##.A.,,...##RR
+R#.....,,.....#R
+,,,,,,,,,......R
+.........,....#R
+.........,....RR
+R#.......,....#R
+RR##.....,...##R
+RRR......,...RRR
+RRRRRRR..RRRRRRR
+
+@screen ow 0 2
+pal OW_ROCK
+enemy blob 12 7
+enemy stalker 3 8
+warp cave 0 0 7 8
+map
+TTTTTTT..TTTTTTT
+T..............T
+T..TTTTTTTT....T
+T..TT#C#TTT....T
+T..TT#.#TTT.....
+T..TTT#TTTT.....
+T...............
+T..............T
+T.....T....T...T
+T..............T
+TTTTTTT..TTTTTTT
+
+@screen ow 1 2
+pal OW_ROCK
+msg INTRO onenter
+shrine 7 6
+map
+TTTTTTT,,TTTTTTT
+T.".....,,...".T
+T..WWWW,,WWWW..T
+T..W........W..T
+,,,,....A...,,,,
+.......,,.......
+,,,,...,,...,,,,
+T..W...,,...W..T
+T..WWWW,,WWWW..T
+T..."...,,.."..T
+TTTTTTT,,TTTTTTT
+
+@screen ow 2 2
+pal OW_ROCK
+enemy blob 4 4
+enemy blob 11 6
+enemy stalker 8 8
+map
+RRRRRRR..RRRRRRR
+R.."........"..R
+R..T.......T...R
+R......T.......R
+................
+....T......T....
+................
+R......T.......R
+R..T.......T...R
+R......"..."...R
+RRRRRRR..RRRRRRR
+
+@screen ow 3 2
+pal OW_ROCK
+enemy blob 3 5
+enemy stalker 5 8
+map
+RRRRRRR..RRRRRRR
+R......,.~~~~~RR
+R..T...,.~~~~~~R
+R......,..~~~~~R
+.......,..~~~~~R
+,,,,,,,,..~~~~~R
+.......,...~~~~R
+R..T...,...~~~~R
+R......,...~~~~R
+R..T...,...~~~RR
+RRRRRRR,.RRRRRRR
+
+@screen ow 0 3
+pal OW_ROCK
+enemy blob 5 4
+enemy blob 10 2
+map
+TTTTTTT..TTTTTTT
+T..~~.......~~.T
+T.~~~..T...~~~.T
+T..~...........T
+T.......~~......
+T..T...~~~~.....
+T.......~~......
+T.~~.........T.T
+T.~~~...T...~~.T
+T..~.......~~~.T
+TTTTTTTTTTTTTTTT
+
+@screen ow 1 3
+pal OW_ROCK
+enemy blob 4 6
+enemy stalker 11 3
+map
+TTTTTTT,,TTTTTTT
+T......,,......T
+T.T....,,....T.T
+T......,,......T
+.......,,.......
+,,,,,,,,,,,,,,,,
+................
+T...T.......T..T
+T.."...T...."..T
+T..............T
+TTTTTTTTTTTTTTTT
+
+@screen ow 2 3
+pal OW_ROCK
+enemy blob 5 5
+enemy blob 10 5
+enemy stalker 8 3
+map
+RRRRRRR..RRRRRRR
+R..............R
+R...T......T...R
+R..............R
+................
+................
+................
+R..............R
+~~~~~~~~~~~~~~~R
+~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~
+
+@screen ow 3 3
+pal OW_WATER
+msg ISLE
+enemy blob 4 5
+enemy shade 12 3
+item heart 12 8
+map
+RRRRRRR..RRRRRRR
+R...."......"..R
+R..A...........R
+R.........~~~~~R
+.........~~~~~~R
+........~~~~~~~R
+........~~~~~~~R
+~~......===..~~R
+~~~~~~~~~~~...~R
+~~~~~~~~~~~~~~~R
+RRRRRRRRRRRRRRRR
+
+# ============================================================ EMBER TEMPLE (3x3)
+
+@screen temple 1 2
+pal TEMPLE_WALL
+msg BRAZIERS
+shrine 7 8
+cond braziers
+warp ow 3 0 7 2
+map
+WWWWWWWDDWWWWWWW
+WFFFFFFFFFFFFFFW
+WFFBFFFFFFFFBFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+OFFFFFFFFFFFFFFO
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFAFFFFFFFFFFFW
+WFFFFFFFSSFFFFFW
+WWWWWWWWWWWWWWWW
+
+@screen temple 0 2
+pal TEMPLE_WALL
+cond clear
+enemy blob 4 2
+enemy blob 11 6
+enemy blob 6 8
+enemy blob 9 2
+map
+WWWWWWWDDWWWWWWW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFWWFFFFFFWWFFW
+WFFWWFFFFFFWWFFW
+WFFFFFFFFFFFFFFO
+WFFFFFFFFFFFFFFW
+WFFWWFFFFFFWWFFW
+WFFWWFFFFFFWWFFW
+WFFFFFFFFFFFFFFW
+WWWWWWWWWWWWWWWW
+
+@screen temple 0 1
+pal TEMPLE_WALL
+msg SHADES onenter
+enemy shade 8 5
+enemy shade 4 1
+map
+WWWWWWWOOWWWWWWW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WWWWWWWWWWWvvWWW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WWWvvWWWWWWWWWWW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WWWWWWWOOWWWWWWW
+
+@screen temple 0 0
+pal TEMPLE_WALL
+cond clear
+enemy stalker 4 3
+enemy stalker 11 3
+enemy blob 7 6
+item tome 7 4
+map
+WWWWWWWWWWWWWWWW
+WFFFFFFFFFFFFFFW
+WFFWFFFFFFFFWFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFWFFFFFFFFWFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFWFFFFFFFFWFFW
+WFFFFFFFFFFFFFFW
+WWWWWWWOOWWWWWWW
+
+@screen temple 1 1
+pal TEMPLE_LAVA
+cond flag temple 2 0
+enemy shade 5 3
+enemy stalker 4 7
+map
+WWWWWWWDDWWWWWWW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFF~~~~~W
+WFFFFFFFFF~FFFFW
+WFFFFFFFFF=FFFFO
+WFFFFFFFFF~FFFFW
+WFFFFFFFFF~~~~~W
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WWWWWWWOOWWWWWWW
+
+@screen temple 2 1
+pal TEMPLE_WALL
+enemy blob 5 5
+enemy blob 10 5
+enemy stalker 12 9
+map
+WWWWWWWOOWWWWWWW
+WFFFFFF##FFFFFFW
+WFFFFFF##FFFFFFW
+WFF####FF####FFW
+WFF#FFFFFFFF#FFW
+OFF#FFFFFFFF#FFW
+WFF#FFFFFFFF#FFW
+WFF####FF####FFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WWWWWWWOOWWWWWWW
+
+@screen temple 2 0
+pal TEMPLE_WALL
+cond braziers
+solvemsg DOOR
+enemy shade 7 4
+enemy blob 3 5
+map
+WWWWWWWWWWWWWWWW
+WBvFFFFFFFFFFvBW
+WvvFFFFFFFFFFvvW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFBFFFFFFBFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WWWWWWWOOWWWWWWW
+
+@screen temple 2 2
+pal TEMPLE_LAVA
+enemy stalker 7 3
+enemy stalker 7 8
+enemy blob 12 5
+map
+WWWWWWWOOWWWWWWW
+WFFFFFFFFFFFFFFW
+WF~~~~FFFF~~~~FW
+WF~~~~FFFF~~~~FW
+WFFFFFFFFFFFFFFW
+O#FFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WF~~~~FFFF~~~~FW
+WF~~~~FFFF~~~~FW
+WFFFFFFFFFFFFFFW
+WWWWWWWWWWWWWWWW
+
+@screen temple 1 0
+pal TEMPLE_WALL
+msg BOSS onenter
+cond clear
+enemy boss 7 2
+item seal 7 4
+map
+WWWWWWWWWWWWWWWW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFWFFFFFFFFWFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFWFFFFFFFFWFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WWWWWWWOOWWWWWWW
+
+# ============================================================ TRIAL CAVE
+
+@screen cave 0 0
+pal CAVE
+msg TRIAL onenter
+cond clear
+warp ow 0 2 6 4
+enemy blob 3 2
+enemy blob 12 2
+enemy stalker 5 5
+enemy stalker 10 5
+enemy shade 7 1
+item sigil 7 4
+map
+RRRRRRRRRRRRRRRR
+RFFFFFFFFFFFFFFR
+RFFFFFFFFFFFFFFR
+RFFRFFFFFFFFRFFR
+RFFFFFFFFFFFFFFR
+RFFFFFFFFFFFFFFR
+RFFFFFFFFFFFFFFR
+RFFRFFFFFFFFRFFR
+RFFFFFFFFFFFFFFR
+RFAFFFFSSFFFFFFR
+RRRRRRRRRRRRRRRR
+
+# ============================================================ TITLE BACKDROP (not playable)
+
+@screen title 0 0
+pal TITLE
+map
+XXXXXXXXXXXXXXXX
+XLXXXXXXXXXXXXLX
+XXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXX
+WWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWW

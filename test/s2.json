@@ -1,0 +1,10 @@
+[{"frames":90},{"frames":60,"press":["start"]},{"frames":40},{"frames":30,"press":["a"]},{"frames":20},
+ {"poke":{"_cp_scr":7,"_cp_x":112,"_cp_y":32,"_state":2},"frames":120},
+ {"frames":60,"press":["start"]},{"frames":30,"shot":"10_bramblepass"},
+ {"frames":30,"press":["a"]},{"frames":10,"shot":"11_veil_on"},{"frames":1,"shot":"11b_veil_on_odd"},
+ {"frames":60,"hold":["up"],"shot":"12_through_veil"},
+ {"frames":60,"press":["a"]},
+ {"frames":50,"hold":["up"],"shot":"13_temple_gate"},
+ {"frames":80,"hold":["up"],"shot":"14_temple_entrance"},
+ {"frames":60,"press":["a"]},{"frames":20,"peek":["_cur","_px","_py","_state","_mana"]}
+]

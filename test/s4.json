@@ -1,0 +1,12 @@
+[{"frames":90},{"frames":60,"press":["start"]},{"frames":40},{"frames":30,"press":["a"]},{"frames":20},
+ {"poke":{"_cp_scr":17,"_cp_x":112,"_cp_y":128,"_state":2,"_arts":3,"_art_sel":1,"_fire_tier":2},"frames":120},
+ {"frames":60,"press":["start"]},{"frames":40,"shot":"30_boss_msg"},{"frames":30,"press":["a"]},{"frames":60,"shot":"31_boss"},
+ {"frames":100,"shot":"32_boss_volley","peek":["_php","_e_hp","_e_type","_e_x","_e_y"]},
+ {"poke":{"_e_hp":1},"frames":1},
+ {"frames":2,"hold":["up"]},{"frames":2,"press":["a"]},{"frames":30},{"frames":2,"press":["a"]},{"frames":30},
+ {"frames":2,"press":["a"]},{"frames":30},{"frames":2,"press":["a"]},{"frames":30,"peek":["_e_type","_e_hp","_state","_flags+2"],"shot":"33_after"},
+ {"frames":60,"shot":"34_seal"},
+ {"frames":200,"hold":["up"],"peek":["_state","_px","_py"],"shot":"35_get"},
+ {"frames":30,"press":["a"]},{"frames":120,"shot":"36_ending"},
+ {"frames":30,"press":["start"]},{"frames":120,"shot":"37_title_continue","save":"build/sav.json"}
+]
