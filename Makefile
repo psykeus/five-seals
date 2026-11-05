@@ -6,11 +6,11 @@ LD65   ?= ld65
 CFLAGS  = -t nes -Oirs -Cl -g --add-source
 ROM     = build/fiveseals.nes
 
-OBJS = build/crt0.o build/sound.o build/gen_sound.o build/main.o build/gen_data.o
+OBJS = build/crt0.o build/sound.o build/gen_sound.o build/main.o build/gen_data.o build/gen_world.o
 
 all: $(ROM)
 
-build/chr.bin src/gen_data.c src/gen_data.h src/gen_sound.s: tools/build.py tools/art.py assets/world.txt
+build/chr.bin build/boss.bin src/gen_data.c src/gen_world.c src/gen_data.h src/gen_sound.s: tools/build.py tools/art.py assets/world.txt
 	python3 tools/build.py
 
 build/%.s: src/%.c src/gen_data.h src/lib.h
@@ -19,7 +19,7 @@ build/%.s: src/%.c src/gen_data.h src/lib.h
 build/%.o: build/%.s
 	$(CA65) -g -o $@ $<
 
-build/crt0.o: src/crt0.s build/chr.bin
+build/crt0.o: src/crt0.s build/chr.bin build/boss.bin
 	$(CA65) -g -o $@ src/crt0.s
 
 build/sound.o: src/sound.s

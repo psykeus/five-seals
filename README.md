@@ -1,8 +1,8 @@
-# THE FIVE SEALS — Book I: Ember and Veil
+# THE FIVE SEALS
 
-An original top-down action-adventure for the NES. You're the last apprentice of a fallen order of mages. Five temples have been sealed and the elemental Arts are fading. You still have the Veil. Book I covers the first temple and the Art of Fire.
+An original top-down action-adventure for the NES. You're the last apprentice of a fallen order of mages. The Unweaver has bound the five elemental Arts behind five seals. You still have the Veil. Break the four temple seals, then go down into the Loom beneath the Sanctum and undo the Unweaver.
 
-**Play:** open `dist/FiveSeals.nes` in MesenCE. Keep `FiveSeals.dbg` next to the ROM and Mesen's debugger will show source-level labels. Progress saves to battery RAM (Mesen writes a `.sav` file).
+**Play:** open `build/fiveseals.nes` (or `dist/FiveSeals.nes`) in MesenCE. Keep the `.dbg` file next to the ROM and Mesen's debugger shows source labels. Progress saves to battery RAM.
 
 ## Controls
 
@@ -11,71 +11,96 @@ An original top-down action-adventure for the NES. You're the last apprentice of
 | D-pad | Move |
 | B | Staff strike (free, short range) |
 | A | Cast the selected Art |
-| SELECT | Switch Art (once you have more than one) |
+| SELECT | Cycle through the Arts you know |
 | START | Pause / start / dismiss messages |
 
-## The Arts (Book I)
+## The Arts
 
-- **Veil** (you start with it). Press A to toggle. It costs 4 mana to raise, then drains steadily.
-  - Illusory walls and bridges show up and become passable.
-  - Shades become visible and can be hurt.
-  - Stalkers lose track of you.
-  - Fire bolts pass through illusions.
-  - The Veil can't drop while you're standing inside an illusion, so it can never trap you in a wall.
-- **Fire** (learned in the Ember Temple). A bolt that burns brambles, lights braziers, and is the only thing that can hurt the boss.
-  - **Mastery II** comes from the optional Trial Cave: double damage, cheaper casts, faster bolts.
-- **Mana** refills slowly while the Veil is down. Enemies sometimes drop mana orbs. The staff costs nothing, so you can never soft-lock on mana.
+| Art | Where | Use in combat | Use in the world | Mana |
+|---|---|---|---|---|
+| **Veil** | You start with it | Shows shades and lets you hit them; stalkers lose track of you | Illusion walls and bridges become visible and passable | 4, then drains while up |
+| **Fire** | Ember Temple | Bolt | Burns brambles, lights braziers | 8 (6 with mastery) |
+| **Earth** | Stone Temple | Rolling boulder, 2 damage | Breaks cracked walls, fills pits | 10 |
+| **Wind** | Sky Spire | Dash: you can't be hurt during it, and it hits everything you pass through | Flies over pits and chasms | 8 |
+| **Water** | Tide Temple | Wave, 2 damage | Puts out walls of flame | 8 |
+
+Bosses only take damage from one Art, following the cycle Fire → Wind → Earth → Water → Fire:
+
+| Boss | Temple | Weak to |
+|---|---|---|
+| Gale Warden | Ember | Fire |
+| Mire Serpent | Stone | Earth |
+| Stone Colossus | Sky | Wind (dash into it) |
+| Cinder Drake | Tide | Water |
+| Unweaver | The Loom | The Art matching its current color, and only while the Veil is up |
+
+Mana refills slowly while the Veil is down, enemies drop mana orbs, and bosses drop one each time you hit them while you're low. The staff is always free, so running out of mana can never soft-lock you.
 
 ## World
 
-- **Ashen Vale:** a 4×4 overworld.
-  - You start at the Sanctum in the middle.
-  - The Ember Temple's gate is behind an illusory rock wall to the northeast.
-  - Optional: the Trial Cave (west, behind brambles) and a secret heart vessel (southeast, across a hidden bridge).
-- **Ember Temple:** 9 rooms with combat locks, a Veil maze, brazier puzzles, a lava bridge, and the Gale Warden boss.
-
-## Art direction
-
-All art is original, drawn to NES limits in a classic NES style:
-- Sprites use 3 colors with a black outline.
-- Light always comes from the top-left.
-- Tiles are 16×16 with 3 colors plus a shared backdrop color.
-- The title logo is the built-in font at double size with a fire gradient.
-
-No third-party assets, so no attribution is required.
+- **Ashen Vale:** a 6×4 overworld. The Sanctum is in the middle. The east half sits behind cracked rocks (Earth).
+- **Five dungeons:**
+  - Ember Temple (9 rooms)
+  - Stone Temple (8)
+  - Sky Spire (7)
+  - Tide Temple (7)
+  - The Loom (7)
+- **Optional:** the Trial Cave (Fire mastery), two heart vessels, and Veil mastery in the Loom.
+- **Order:** each temple needs the Art from the one before it. Fire opens the Stone Temple, Earth opens the east, Wind crosses the chasm to the Tide Temple, and all four seals open the Loom.
 
 ## Building
 
-You need [cc65](https://cc65.github.io/) on `PATH`, plus `python3`.
+You need [cc65](https://cc65.github.io/) on `PATH`, plus `python3` with Pillow (Pillow is only for `tools/preview.py`).
 
 ```bash
 make            # -> build/fiveseals.nes
+```
+
+Browser build (one HTML file with the emulator and ROM embedded):
+
+```bash
+python3 tools/build_web.py path/to/jsnes.min.js build/web.html
 ```
 
 ## Changing the game
 
 | Want to change… | Edit |
 |---|---|
-| Maps, enemies, items, doors, warps, all text | `assets/world.txt` (legend at the top of the file) |
-| Pixel art: tiles, sprites, font | `tools/art.py` (ASCII art, colors 0–3). Run `python3 tools/preview.py` to render every tile and sprite to `build/preview.png` with its real palette |
+| Maps, enemies, items, doors, warps, all text | `assets/world.txt` (legend at the top) |
+| Pixel art: tiles, sprites, font, icons | `tools/art.py`. Run `python3 tools/preview.py` to render everything to `build/preview.png` |
+| Boss sprites (drawn by code) | `tools/build.py` (`*_frame` functions, `BOSS_PALS`) |
 | Palettes, music, sound effects | `tools/build.py` (`PALSETS`, `SONGS`, `SFX`) |
-| Game logic | `src/main.c` |
-| Hardware runtime: NMI, sprites, MMC1 | `src/crt0.s` |
+| Game logic, boss stats | `src/main.c` (`boss_hp`, `boss_move`, `art_cost`, …) |
+| Hardware runtime: NMI, sprites, MMC1, bank copy | `src/crt0.s` |
 | Sound driver | `src/sound.s` |
 
-`tools/build.py` checks the world as it builds. It fails if neighbouring screen edges don't line up, an enemy or item sits inside a wall, or a warp lands on a bad tile.
+`tools/build.py` checks the world as it builds. The build fails if:
+- neighbouring screen edges don't line up;
+- an enemy or item sits in a wall;
+- a warp lands on a bad tile.
+
+The ID of every screen is written to `build/screens.json`.
 
 ### Tech notes
 
-- **Mapper:** MMC1. 128 KB PRG (banks 2–6 are empty, room for Books II–V), 8 KB CHR-RAM, 8 KB battery WRAM.
+- **Mapper:** MMC1. 128 KB PRG, 8 KB CHR-RAM, 8 KB battery WRAM.
 - **Bank layout:**
-  - Bank 7 (fixed): startup, runtime, sound, and C code.
-  - Bank 0: data and overflow code.
-  - Bank 1: tile data, copied into CHR-RAM at boot.
-- **Screen:** one screen per room, Zelda-style 64 px HUD, 16×11 grid of 16×16 metatiles.
-- **Veil effect:** illusion tiles use background palette 3. Normally their colors match what they imitate. Raising the Veil swaps that one palette, which shows the hidden pattern, at no extra map or tile cost.
-- **Frame budget:** the NMI does OAM DMA, then palette, then a VRAM update buffer. Game logic decides what changes; HUD and tile updates are spread across frames to stay inside vblank.
+
+  | Bank | Contents |
+  |---|---|
+  | 0 | Most gameplay code and constant tables |
+  | 1 | Tile data, plus five boss sprite sets. A boss's set is copied into a shared sprite slot when you enter its room |
+  | 2 | World data: 64 screen maps, enemy lists, all text. Copied into RAM on demand with `bank_copy` |
+  | 7 (fixed) | Startup, runtime, sound, the rest of the C code |
+  | 3–6 | Free |
+
+- **Screen:** one screen per room, a 64 px HUD (life, mana, Art, the four seals), 16×11 metatiles.
+- **Veil effect:** illusion tiles use background palette 3. Normally its colors match what the tiles imitate; raising the Veil swaps that one palette. Each room picks one of 13 palette sets.
+- **Frame budget:** the NMI does OAM DMA, then palette, then a VRAM update buffer. HUD and tile updates are spread across frames to stay inside vblank. The busiest rooms measure zero lag frames in testing.
 
 ### Headless tests
 
-`test/run.mjs` runs the ROM in jsnes with scripted input. It can poke variables by symbol name (from the `.dbg` file) and save screenshots. The other files in `test/` are example scripts. `fuzz.json` mashes random input on every screen.
+`test/run.mjs` runs the ROM in jsnes with scripted input. It can poke variables by symbol name (from the `.dbg` file) and save screenshots.
+
+- `test/full/*.json`: each Art's world interaction, every boss (wrong Art does nothing, right Art kills it), the seal gate, and the ending.
+- `test/fuzz.json`: random input on all 63 playable screens.

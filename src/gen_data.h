@@ -22,13 +22,24 @@
 #define MT_VEILBRICK 17
 #define MT_VOID 18
 #define MT_FLOWERS 19
-#define NUM_MT 20
+#define MT_CRACKED 20
+#define MT_CRACKBRICK 21
+#define MT_PIT 22
+#define MT_CHASM 23
+#define MT_FILLED 24
+#define MT_FLAMEWALL 25
+#define MT_SEALGATE 26
+#define NUM_MT 27
+#define SPR_BAT0 126
+#define SPR_BAT1 130
 #define SPR_BLOB0 30
 #define SPR_BLOB1 34
 #define SPR_BOLT0 28
 #define SPR_BOLT1 29
-#define SPR_BOSS0 54
-#define SPR_BOSS1 70
+#define SPR_BOSS 54
+#define SPR_BOULDER 114
+#define SPR_EYE0 134
+#define SPR_EYE1 138
 #define SPR_GUST0 96
 #define SPR_GUST1 97
 #define SPR_HEART 94
@@ -51,22 +62,39 @@
 #define SPR_STALK0 38
 #define SPR_STALK1 42
 #define SPR_TOME 102
+#define SPR_WAVE_H 118
+#define SPR_WAVE_V 122
 #define T_HEART_EMPTY 3
 #define T_HEART_FULL 1
 #define T_HEART_HALF 2
 #define T_HUD_LINE 21
+#define T_ICON_EARTH 213
 #define T_ICON_FIRE 13
 #define T_ICON_VEIL 17
+#define T_ICON_WATER 221
+#define T_ICON_WIND 217
 #define T_MANA0 4
+#define T_SEAL_OFF 225
+#define T_SEAL_ON 226
 extern const unsigned char title_top[20];
 extern const unsigned char title_bot[20];
 #define TITLE_W 20
 extern const unsigned char spr_pals[16];
-#define NUM_SCREENS 27
+extern const unsigned char boss_pals[20];
+extern const unsigned char art_icon[5];
+#define NUM_SCREENS 64
 #define SCR_START 9
 #define START_X 112
 #define START_Y 96
-#define SCR_TITLE 26
+#define SCR_TITLE 63
+#define AREA_OW 0
+#define AREA_EMBER 1
+#define AREA_TRIAL 2
+#define AREA_STONE 3
+#define AREA_SKY 4
+#define AREA_TIDE 5
+#define AREA_LOOM 6
+#define AREA_TITLE 7
 #define MSG_INTRO 1
 #define MSG_VEILGATE 2
 #define MSG_TEMPLEGATE 3
@@ -82,10 +110,33 @@ extern const unsigned char spr_pals[16];
 #define MSG_BRAZIERS 13
 #define MSG_MANA 14
 #define MSG_BOSS 15
+#define MSG_STONEGATE 16
+#define MSG_STONE_ENTRY 17
+#define MSG_TOME_EARTH 18
+#define MSG_SEAL_EARTH 19
+#define MSG_BOSS_SERPENT 20
+#define MSG_EAST 21
+#define MSG_SKY_GATE 22
+#define MSG_SKY_ENTRY 23
+#define MSG_TOME_WIND 24
+#define MSG_SEAL_WIND 25
+#define MSG_BOSS_COLOSSUS 26
+#define MSG_TIDE_GATE 27
+#define MSG_TIDE_ENTRY 28
+#define MSG_TOME_WATER 29
+#define MSG_SEAL_WATER 30
+#define MSG_BOSS_DRAKE 31
+#define MSG_SEALS4 32
+#define MSG_LOOM_ENTRY 33
+#define MSG_VSIGIL 34
+#define MSG_BOSS_UNWEAVER 35
+#define MSG_FINAL 36
 #define SONG_OVERWORLD 0
 #define SONG_TEMPLE 1
 #define SONG_BOSS 2
-#define SONG_ENDING 3
+#define SONG_DUNGEON 3
+#define SONG_FINAL 4
+#define SONG_ENDING 5
 #define SFX_SWING 0
 #define SFX_FIRE 1
 #define SFX_HIT 2
@@ -101,18 +152,51 @@ extern const unsigned char spr_pals[16];
 #define SFX_BLIP 12
 #define SFX_TINK 13
 #define SFX_SELECT 14
+#define SFX_DASH 15
+#define SFX_ROCK 16
+#define SFX_WAVE 17
 #define PAL_OW_ROCK 0
 #define PAL_OW_WATER 1
 #define PAL_TEMPLE_WALL 2
 #define PAL_TEMPLE_LAVA 3
 #define PAL_TITLE 4
 #define PAL_CAVE 5
+#define PAL_STONE 6
+#define PAL_SKY 7
+#define PAL_TIDE 8
+#define PAL_TIDE_FLAME 9
+#define PAL_TIDE_BRIDGE 10
+#define PAL_LOOM 11
+#define PAL_LOOM_STONE 12
+#define E_BLOB 1
+#define E_STALKER 2
+#define E_SHADE 3
+#define E_BAT 4
+#define E_EYE 5
+#define E_BOSS_GALE 6
+#define E_BOSS_SERPENT 7
+#define E_BOSS_COLOSSUS 8
+#define E_BOSS_DRAKE 9
+#define E_BOSS_UNWEAVER 10
+#define IT_TOME 1
+#define IT_SIGIL 2
+#define IT_HEART 3
+#define IT_SEAL 4
+#define IT_TOME_EARTH 5
+#define IT_TOME_WIND 6
+#define IT_TOME_WATER 7
+#define IT_SEAL_EARTH 8
+#define IT_SEAL_WIND 9
+#define IT_SEAL_WATER 10
+#define IT_SEAL_VEIL 11
+#define IT_VSIGIL 12
 extern const unsigned char mt_tl[];
 extern const unsigned char mt_tr[];
 extern const unsigned char mt_bl[];
 extern const unsigned char mt_br[];
 extern const unsigned char mt_pal[];
 extern const unsigned char mt_flags[];
+extern const unsigned char mt_flags2[];
 extern const unsigned char scr_pal[];
 extern const unsigned char scr_area[];
 extern const unsigned char scr_up[];

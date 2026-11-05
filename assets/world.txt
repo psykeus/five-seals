@@ -112,16 +112,18 @@ WOUND IT.
 # ============================================================ OVERWORLD (4x4)
 
 @screen ow 0 0
+msg STONEGATE
+warp stone 1 2 7 8
 pal OW_ROCK
-enemy blob 5 3
+enemy blob 6 3
 enemy blob 10 8
 enemy shade 7 5
 map
 TTTTTTTTTTTTTTTT
-TT..T....T...TTT
-T...........T..T
-T..TT...TT.....T
-T..TT...TT......
+TRRRCRRR.T...TTT
+T..#.#....A.T..T
+T..T#T..TT.....T
+T..T....TT......
 T...............
 T....T....TT....
 TT.......TT....T
@@ -168,7 +170,7 @@ pal OW_ROCK
 msg TEMPLEGATE
 enemy stalker 4 6
 enemy blob 11 6
-warp temple 1 2 7 8
+warp ember 1 2 7 8
 map
 RRRRRRRRRRRRRRRR
 RRRWWWWCWWWWWRRR
@@ -245,9 +247,9 @@ RRRRRRRVVRRRRRRR
 RRRRRRR..RRRRRRR
 RR##.A.,,...##RR
 R#.....,,.....#R
-,,,,,,,,,......R
-.........,....#R
-.........,....RR
+,,,,,,,,,......K
+.........,.....K
+.........,.....K
 R#.......,....#R
 RR##.....,...##R
 RRR......,...RRR
@@ -257,7 +259,7 @@ RRRRRRR..RRRRRRR
 pal OW_ROCK
 enemy blob 12 7
 enemy stalker 3 8
-warp cave 0 0 7 8
+warp trial 0 0 7 8
 map
 TTTTTTT..TTTTTTT
 T..............T
@@ -272,6 +274,9 @@ T..............T
 TTTTTTT..TTTTTTT
 
 @screen ow 1 2
+cond seals
+solvemsg SEALS4
+warp loom 1 2 7 8
 pal OW_ROCK
 msg INTRO onenter
 shrine 7 6
@@ -279,7 +284,7 @@ map
 TTTTTTT,,TTTTTTT
 T.".....,,...".T
 T..WWWW,,WWWW..T
-T..W........W..T
+T..W...G....W..T
 ,,,,....A...,,,,
 .......,,.......
 ,,,,...,,...,,,,
@@ -396,8 +401,8 @@ RRRRRRRRRRRRRRRR
 
 # ============================================================ EMBER TEMPLE (3x3)
 
-@screen temple 1 2
-pal TEMPLE_WALL
+@screen ember 1 2
+pal EMBER_WALL
 msg BRAZIERS
 shrine 7 8
 cond braziers
@@ -415,8 +420,8 @@ WFFAFFFFFFFFFFFW
 WFFFFFFFSSFFFFFW
 WWWWWWWWWWWWWWWW
 
-@screen temple 0 2
-pal TEMPLE_WALL
+@screen ember 0 2
+pal EMBER_WALL
 cond clear
 enemy blob 4 2
 enemy blob 11 6
@@ -435,8 +440,8 @@ WFFWWFFFFFFWWFFW
 WFFFFFFFFFFFFFFW
 WWWWWWWWWWWWWWWW
 
-@screen temple 0 1
-pal TEMPLE_WALL
+@screen ember 0 1
+pal EMBER_WALL
 msg SHADES onenter
 enemy shade 8 5
 enemy shade 4 1
@@ -453,8 +458,8 @@ WFFFFFFFFFFFFFFW
 WFFFFFFFFFFFFFFW
 WWWWWWWOOWWWWWWW
 
-@screen temple 0 0
-pal TEMPLE_WALL
+@screen ember 0 0
+pal EMBER_WALL
 cond clear
 enemy stalker 4 3
 enemy stalker 11 3
@@ -473,9 +478,9 @@ WFFWFFFFFFFFWFFW
 WFFFFFFFFFFFFFFW
 WWWWWWWOOWWWWWWW
 
-@screen temple 1 1
-pal TEMPLE_LAVA
-cond flag temple 2 0
+@screen ember 1 1
+pal EMBER_LAVA
+cond flag ember 2 0
 enemy shade 5 3
 enemy stalker 4 7
 map
@@ -491,8 +496,8 @@ WFFFFFFFFFFFFFFW
 WFFFFFFFFFFFFFFW
 WWWWWWWOOWWWWWWW
 
-@screen temple 2 1
-pal TEMPLE_WALL
+@screen ember 2 1
+pal EMBER_WALL
 enemy blob 5 5
 enemy blob 10 5
 enemy stalker 12 9
@@ -509,8 +514,8 @@ WFFFFFFFFFFFFFFW
 WFFFFFFFFFFFFFFW
 WWWWWWWOOWWWWWWW
 
-@screen temple 2 0
-pal TEMPLE_WALL
+@screen ember 2 0
+pal EMBER_WALL
 cond braziers
 solvemsg DOOR
 enemy shade 7 4
@@ -528,8 +533,8 @@ WFFFFFFFFFFFFFFW
 WFFFFFFFFFFFFFFW
 WWWWWWWOOWWWWWWW
 
-@screen temple 2 2
-pal TEMPLE_LAVA
+@screen ember 2 2
+pal EMBER_LAVA
 enemy stalker 7 3
 enemy stalker 7 8
 enemy blob 12 5
@@ -546,11 +551,11 @@ WF~~~~FFFF~~~~FW
 WFFFFFFFFFFFFFFW
 WWWWWWWWWWWWWWWW
 
-@screen temple 1 0
-pal TEMPLE_WALL
+@screen ember 1 0
+pal EMBER_WALL
 msg BOSS onenter
 cond clear
-enemy boss 7 2
+enemy boss_gale 7 2
 item seal 7 4
 map
 WWWWWWWWWWWWWWWW
@@ -567,7 +572,7 @@ WWWWWWWOOWWWWWWW
 
 # ============================================================ TRIAL CAVE
 
-@screen cave 0 0
+@screen trial 0 0
 pal CAVE
 msg TRIAL onenter
 cond clear
@@ -591,6 +596,838 @@ RFFFFFFFFFFFFFFR
 RFAFFFFSSFFFFFFR
 RRRRRRRRRRRRRRRR
 
+# ============================================================ BOOKS II-V: messages
+
+@msg STONEGATE
+STONE SLEEPS BEHIND THE
+BRAMBLES OF THE OLD WOOD.
+@end
+
+@msg STONE_ENTRY
+THE STONE TEMPLE. ITS FLOOR
+HAS FALLEN AWAY IN PLACES.
+LIGHT THE WAY FORWARD.
+@end
+
+@msg TOME_EARTH
+THE ART OF EARTH IS YOURS!
+YOUR STONE BREAKS CRACKED
+WALLS AND FILLS PITS.
+@end
+
+@msg SEAL_EARTH
+THE STONE SEAL IS BROKEN!
+THE ART OF EARTH IS FREE,
+AND YOUR LIFE GROWS.
+@end
+
+@msg BOSS_SERPENT
+THE MIRE SERPENT. WATER
+YIELDS ONLY TO STONE.
+@end
+
+@msg EAST
+NORTH: THE SKY SPIRE.
+SOUTH: THE TIDE TEMPLE.
+@end
+
+@msg SKY_GATE
+THE SKY SPIRE. ITS DOOR IS
+SEALED BEHIND CRACKED STONE.
+@end
+
+@msg SKY_ENTRY
+WIDE CHASMS SPLIT THE SPIRE.
+NO STONE CAN FILL THEM.
+@end
+
+@msg TOME_WIND
+THE ART OF WIND IS YOURS!
+PRESS A TO DASH. YOU FLY
+OVER CHASMS AND STRIKE
+WHAT YOU PASS THROUGH.
+@end
+
+@msg SEAL_WIND
+THE GALE SEAL IS BROKEN!
+THE ART OF WIND IS FREE,
+AND YOUR LIFE GROWS.
+@end
+
+@msg BOSS_COLOSSUS
+THE STONE COLOSSUS. ONLY
+THE WIND CAN TOPPLE IT.
+@end
+
+@msg TIDE_GATE
+THE TIDE TEMPLE LIES PAST
+A CHASM NO STONE CAN FILL.
+@end
+
+@msg TIDE_ENTRY
+WALLS OF FLAME BAR THE WAY.
+ONLY THE TIDE CAN QUENCH
+THEM.
+@end
+
+@msg TOME_WATER
+THE ART OF WATER IS YOURS!
+YOUR WAVE QUENCHES WALLS
+OF FLAME.
+@end
+
+@msg SEAL_WATER
+THE TIDE SEAL IS BROKEN!
+THE ART OF WATER IS FREE,
+AND YOUR LIFE GROWS.
+@end
+
+@msg BOSS_DRAKE
+THE CINDER DRAKE. QUENCH
+ITS FIRE WITH THE TIDE.
+@end
+
+@msg SEALS4
+THE FOUR SEALS ARE BROKEN.
+BENEATH THE SANCTUM, THE
+LOOM OF THE UNWEAVER OPENS
+AT LAST.
+@end
+
+@msg LOOM_ENTRY
+THE LOOM. HERE THE UNWEAVER
+BOUND THE ARTS. YOU WILL
+NEED ALL FIVE.
+@end
+
+@msg VSIGIL
+VEIL MASTERY II! YOUR VEIL
+DRAINS HALF AS MUCH MANA.
+@end
+
+@msg BOSS_UNWEAVER
+THE UNWEAVER HIDES BEYOND
+THE VEIL. ITS WEAKNESS
+SHIFTS WITH ITS COLOR.
+@end
+
+@msg FINAL
+THE UNWEAVER IS UNDONE!
+THE VEIL SEAL BREAKS, AND
+THE FIVE ARTS RETURN TO
+THE WORLD.
+@end
+
+# ============================================================ OVERWORLD EAST (x 4-5)
+
+@screen ow 4 0
+pal OW_ROCK
+enemy bat 6 3
+enemy stalker 10 8
+map
+RRRRRRRRRRRRRRRR
+R..............R
+R..R....RR.....R
+R..............R
+R......R........
+R...............
+R..RR...........
+R..........R...R
+R...R..........R
+R..............R
+RRRRRRR..RRRRRRR
+
+@screen ow 5 0
+pal OW_ROCK
+msg SKY_GATE
+warp sky 1 2 7 8
+enemy eye 12 4
+enemy bat 5 6
+map
+RRRRRRRRRRRRRRRR
+RRRRRRRCRRRRRRRR
+RRRRRRKKKRRRRRRR
+RR.............R
+...............R
+...............R
+...............R
+R..............R
+R...A..........R
+R..............R
+RRRRRRR..RRRRRRR
+
+@screen ow 4 1
+pal OW_ROCK
+msg EAST
+enemy stalker 6 5
+enemy bat 11 2
+map
+RRRRRRR..RRRRRRR
+R..............R
+R...RR....RR...R
+R..A...........R
+................
+................
+................
+R..............R
+R...RR....RR...R
+R..............R
+RRRRRRR..RRRRRRR
+
+@screen ow 5 1
+pal OW_ROCK
+enemy blob 4 6
+enemy eye 12 8
+map
+RRRRRRR..RRRRRRR
+R......,,......R
+R..R...,,...R..R
+R......,,......R
+,,,,,,,,,......R
+.......,,......R
+.......,,......R
+R......,,...R..R
+R..R...,,......R
+R......,,......R
+RRRRRRR,,RRRRRRR
+
+@screen ow 4 2
+pal OW_ROCK
+enemy blob 5 4
+enemy bat 10 8
+enemy stalker 12 3
+map
+RRRRRRR..RRRRRRR
+R..~~.......~~.R
+R.~~~..T...~~~.R
+R..~...........R
+R...............
+R..T....~~~.....
+R.......~~......
+R.~~.........T.R
+R.~~~...T...~~.R
+R..~...........R
+RRRRRRR..RRRRRRR
+
+@screen ow 5 2
+pal OW_ROCK
+enemy stalker 4 5
+enemy bat 9 8
+map
+RRRRRRR,,RRRRRRR
+R......,,......R
+R......,,..~~~~R
+R......,,.~~~~~R
+.......,,.~~~~~R
+.......,,..~~~~R
+.......,,...~~~R
+R......,,......R
+R..T...,,...T..R
+R......,,......R
+RRRRRRR,,RRRRRRR
+
+@screen ow 4 3
+pal OW_ROCK
+enemy blob 5 5
+enemy blob 10 4
+enemy eye 12 2
+map
+RRRRRRR..RRRRRRR
+R..............R
+R...T......T...R
+R..............R
+R...............
+R...............
+R...............
+R..............R
+~~~~~~~~~~~~~~~R
+~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~
+
+@screen ow 5 3
+pal OW_ROCK
+msg TIDE_GATE
+warp tide 1 2 7 8
+enemy bat 2 7
+enemy stalker 13 2
+map
+RRRRRRR,,RRRRRRR
+R......,,......R
+R...ppppppppp..R
+R...p.......p..R
+....p...S...p..R
+....p.......p..R
+....p.......p..R
+R...ppppppppp..R
+R..............R
+R...A.......~~~R
+RRRRRRRRRRRRRRRR
+
+# ============================================================ STONE TEMPLE
+
+@screen stone 1 2
+pal STONE
+msg STONE_ENTRY onenter
+shrine 7 8
+cond braziers
+warp ow 0 0 4 2
+map
+WWWWWWWDDWWWWWWW
+WFFFFFFFFFFFFFFW
+WFFBFFFFFFFFBFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFO
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFAFFFFFFFFFFFW
+WFFFFFFFSSFFFFFW
+WWWWWWWWWWWWWWWW
+
+@screen stone 2 2
+pal STONE
+item heart 12 5
+enemy shade 4 3
+enemy shade 5 7
+enemy blob 3 5
+map
+WWWWWWWWWWWWWWWW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFvvvvvW
+WFFFFFFFFFvFFFFW
+WFFFFFFFFFvFFFFW
+OFFFFFFFFFvFFFFW
+WFFFFFFFFFvFFFFW
+WFFFFFFFFFvFFFFW
+WFFFFFFFFFvvvvvW
+WFFFFFFFFFFFFFFW
+WWWWWWWWWWWWWWWW
+
+@screen stone 1 1
+pal STONE
+enemy bat 4 3
+enemy bat 12 5
+enemy stalker 4 7
+map
+WWWWWWWWWWWWWWWW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFPPPPPPW
+WFFFFFFFFPFFFFFW
+WFFFFFFFFPFFFFFW
+OFFFFFFFFPFFFFFO
+WFFFFFFFFPFFFFFW
+WFFFFFFFFPFFFFFW
+WFFFFFFFFPPPPPPW
+WFFFFFFFFFFFFFFW
+WWWWWWWOOWWWWWWW
+
+@screen stone 0 1
+pal STONE
+cond clear
+enemy eye 1 1
+enemy eye 14 9
+enemy stalker 6 5
+enemy stalker 9 5
+map
+WWWWWWWDDWWWWWWW
+WFFFFFFFFFFFFFFW
+WFFWWFFFFFFWWFFW
+WFFWWFFFFFFWWFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFO
+WFFFFFFFFFFFFFFW
+WFFWWFFFFFFWWFFW
+WFFWWFFFFFFWWFFW
+WFFFFFFFFFFFFFFW
+WWWWWWWWWWWWWWWW
+
+@screen stone 0 0
+pal STONE
+cond clear
+item tome_earth 7 4
+enemy blob 4 3
+enemy blob 11 3
+enemy bat 7 7
+map
+WWWWWWWWWWWWWWWW
+WFFFFFFFFFFFFFFW
+WFFWFFFFFFFFWFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFWFFFFFFFFWFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFWFFFFFFFFWFFW
+WFFFFFFFFFFFFFFW
+WWWWWWWOOWWWWWWW
+
+@screen stone 2 1
+pal STONE
+enemy eye 7 1
+enemy stalker 4 8
+enemy blob 11 5
+map
+WWWWWWWOOWWWWWWW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WkkkkkkkkkkkkkkW
+WFFFFFFFFFFFFFFW
+OFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFWWFFFFFFWWFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WWWWWWWWWWWWWWWW
+
+@screen stone 2 0
+pal STONE
+enemy bat 7 5
+enemy bat 9 2
+map
+WWWWWWWWWWWWWWWW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFPPPPPPPPPPFFW
+WFFPFFFFFFFFPFFW
+OkFPFFFFFFFFPFFW
+WFFPFFFFFFFFPFFW
+WFFPPPPPPPPPPFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WWWWWWWOOWWWWWWW
+
+@screen stone 1 0
+pal STONE
+msg BOSS_SERPENT onenter
+cond clear
+enemy boss_serpent 7 3
+item seal_earth 7 6
+map
+WWWWWWWWWWWWWWWW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFO
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WWWWWWWWWWWWWWWW
+
+# ============================================================ SKY SPIRE
+
+@screen sky 1 2
+pal SKY
+msg SKY_ENTRY onenter
+shrine 7 8
+cond clear
+warp ow 5 0 7 3
+enemy bat 4 3
+enemy bat 11 3
+enemy bat 7 6
+map
+WWWWWWWDDWWWWWWW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFWFFFFFFFFWFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFWFFFFFFFFWFFW
+WFFAFFFFFFFFFFFW
+WFFFFFFFSSFFFFFW
+WWWWWWWWWWWWWWWW
+
+@screen sky 1 1
+pal SKY
+cond flag sky 2 0
+enemy bat 5 7
+enemy eye 12 8
+map
+WWWWWWWDDWWWWWWW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFO
+WppppppppppppppW
+WppppppppppppppW
+OFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WWWWWWWOOWWWWWWW
+
+@screen sky 0 1
+pal SKY
+cond braziers
+enemy eye 2 8
+enemy eye 13 8
+enemy blob 7 6
+map
+WWWWWWWDDWWWWWWW
+WFFFFFFFFFFFFFFW
+WFFBFFFFFFFFBFFW
+WFFFFFFFFFFFFFFW
+WPPPPPPPPPPPPPPW
+WFFFFFFFFFFFFFFO
+WFFFFFFFFFFFFFFW
+WFFWWFFFFFFWWFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WWWWWWWWWWWWWWWW
+
+@screen sky 0 0
+pal SKY
+cond clear
+item tome_wind 7 4
+enemy stalker 4 3
+enemy stalker 11 3
+enemy bat 7 7
+enemy eye 7 1
+map
+WWWWWWWWWWWWWWWW
+WFFFFFFFFFFFFFFW
+WFFWFFFFFFFFWFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFWFFFFFFFFWFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFWFFFFFFFFWFFW
+WFFFFFFFFFFFFFFW
+WWWWWWWOOWWWWWWW
+
+@screen sky 2 1
+pal SKY
+enemy stalker 4 8
+enemy stalker 11 8
+enemy bat 12 4
+map
+WWWWWWWOOWWWWWWW
+WWWWWWWFFWWWWWWW
+OFFFFFFppFFFFFFW
+WFFFFFFppFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFWWFFFFFFWWFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WWWWWWWWWWWWWWWW
+
+@screen sky 2 0
+pal SKY
+cond braziers
+solvemsg DOOR
+enemy bat 7 2
+enemy eye 7 8
+map
+WWWWWWWWWWWWWWWW
+WBppFFFFFFFFppBW
+WppFFFFFFFFFFppW
+WFFFFFFFFFFFFFFW
+WFFFvvvFFvvvFFFW
+WFFFvBvFFvBvFFFW
+WFFFvvvFFvvvFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WWWWWWWOOWWWWWWW
+
+@screen sky 1 0
+pal SKY
+msg BOSS_COLOSSUS onenter
+cond clear
+enemy boss_colossus 7 3
+item seal_wind 7 6
+map
+WWWWWWWWWWWWWWWW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WWWWWWWOOWWWWWWW
+
+# ============================================================ TIDE TEMPLE
+
+@screen tide 1 2
+pal TIDE
+msg TIDE_ENTRY onenter
+shrine 7 8
+cond clear
+warp ow 5 3 8 5
+enemy blob 5 4
+enemy blob 10 4
+enemy eye 7 2
+map
+WWWWWWWDDWWWWWWW
+WFFFFFFFFFFFFFFW
+W~~FFFFFFFFFF~~W
+W~~FFFFFFFFFF~~W
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+W~~FFFFFFFFFF~~W
+W~~AFFFFFFFFF~~W
+WFFFFFFFSSFFFFFW
+WWWWWWWWWWWWWWWW
+
+@screen tide 1 1
+pal TIDE_FLAME
+cond flag tide 2 0
+enemy stalker 4 3
+enemy eye 9 8
+map
+WWWWWWWDDWWWWWWW
+WFFFFFFFFFFFZFFW
+WFFFFFFFFFFFZFFW
+WFFFFFFFFFFFZFFW
+WFFFFFFFFFFFZFFW
+OFFFFFFFFFFFZFFO
+WFFFFFFFFFFFZFFW
+WFFFFFFFFFFFZFFW
+WFFFFFFFFFFFZFFW
+WFFFFFFFFFFFZFFW
+WWWWWWWOOWWWWWWW
+
+@screen tide 0 1
+pal TIDE
+enemy bat 5 7
+enemy bat 10 1
+enemy eye 2 1
+map
+WWWWWWWOOWWWWWWW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WppppppppppppppW
+WppppppppppppppW
+WFFFFFFFFFFFFFFO
+WFFFFFFFFFFFFFFW
+WFFWWFFFFFFWWFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WWWWWWWWWWWWWWWW
+
+@screen tide 0 0
+pal TIDE
+cond clear
+item tome_water 7 4
+enemy stalker 4 3
+enemy stalker 11 3
+enemy eye 7 8
+enemy bat 3 6
+map
+WWWWWWWWWWWWWWWW
+WFFFFFFFFFFFFFFW
+WFFWFFFFFFFFWFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFWFFFFFFFFWFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFWFFFFFFFFWFFW
+WFFFFFFFFFFFFFFW
+WWWWWWWOOWWWWWWW
+
+@screen tide 2 1
+pal TIDE_BRIDGE
+enemy eye 13 1
+enemy blob 4 7
+enemy stalker 11 7
+map
+WWWWWWWOOWWWWWWW
+WFFFFFFFFFFFFFFW
+W~~~~~~=~~~~~~~W
+W~~~~~~=~~~~~~~W
+W~~~~~~=~~~~~~~W
+OFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFWWFFFFFFWWFFW
+WFFFFFFFFFFFFFFW
+WWWWWWWWWWWWWWWW
+
+@screen tide 2 0
+pal TIDE_FLAME
+cond braziers
+solvemsg DOOR
+enemy bat 5 7
+enemy bat 10 7
+map
+WWWWWWWWWWWWWWWW
+WBFZFFFFFFFFZFBW
+WFFZFFFFFFFFZFFW
+WZZZFFFFFFFFZZZW
+WFFFFFFFFFFFFFFW
+WFFFFFFBBFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WWWWWWWOOWWWWWWW
+
+@screen tide 1 0
+pal TIDE_FLAME
+msg BOSS_DRAKE onenter
+cond clear
+enemy boss_drake 7 3
+item seal_water 7 6
+map
+WWWWWWWWWWWWWWWW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WWWWWWWOOWWWWWWW
+
+# ============================================================ THE LOOM
+
+@screen loom 1 2
+pal LOOM
+msg LOOM_ENTRY onenter
+shrine 7 8
+warp ow 1 2 7 4
+enemy shade 4 4
+enemy shade 11 4
+map
+WWWWWWWOOWWWWWWW
+WFFFFFFFFFFFFFFW
+WFFvFFFFFFFFvFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFvFFFFFFFFvFFW
+WFFAFFFFFFFFFFFW
+WFFFFFFFSSFFFFFW
+WWWWWWWWWWWWWWWW
+
+@screen loom 1 1
+pal LOOM
+cond flag loom 2 0
+enemy stalker 4 1
+enemy stalker 11 9
+enemy shade 7 5
+map
+WWWWWWWDDWWWWWWW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFvvFFFFFFvvFFW
+WFFvvFFFFFFvvFFW
+OFFFFFFFFFFFFFFO
+WFFvvFFFFFFvvFFW
+WFFvvFFFFFFvvFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WWWWWWWOOWWWWWWW
+
+@screen loom 0 1
+pal LOOM_STONE
+cond braziers
+enemy eye 7 8
+enemy bat 4 6
+enemy bat 11 6
+map
+WWWWWWWDDWWWWWWW
+WFFFFFFFFFFFFFFW
+WFBFFFFFFFFFFBFW
+WFFFFFFFFFFFFFFW
+WkkkkkkPPkkkkkkW
+WFFFFFFFFFFFFFFO
+WFFFFFFFFFFFFFFW
+WFF#FFFFFFFF#FFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WWWWWWWWWWWWWWWW
+
+@screen loom 0 0
+pal LOOM
+cond clear
+item vsigil 7 4
+enemy stalker 4 3
+enemy stalker 11 3
+enemy eye 7 8
+enemy shade 7 2
+map
+WWWWWWWWWWWWWWWW
+WFFFFFFFFFFFFFFW
+WFFWFFFFFFFFWFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFWFFFFFFFFWFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFWFFFFFFFFWFFW
+WFFFFFFFFFFFFFFW
+WWWWWWWOOWWWWWWW
+
+@screen loom 2 1
+pal LOOM
+enemy bat 4 7
+enemy bat 11 7
+enemy eye 13 2
+map
+WWWWWWWOOWWWWWWW
+WWWWWWWZZWWWWWWW
+WFFFFFFFFFFFFFFW
+WppppppppppppppW
+WppppppppppppppW
+OFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFWWFFFFFFWWFFW
+WFFFFFFFFFFFFFFW
+WWWWWWWWWWWWWWWW
+
+@screen loom 2 0
+pal LOOM
+cond braziers
+solvemsg DOOR
+enemy shade 4 7
+enemy shade 11 7
+enemy eye 7 8
+map
+WWWWWWWWWWWWWWWW
+WBvFFFFFFFFFFZBW
+WvvFFFFFFFFFFZZW
+WFFFFFFFFFFFFFFW
+WFFFFFFkkkFFFFFW
+WFFFFFFkBkFFFFFW
+WFFFFFFkkkFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WWWWWWWOOWWWWWWW
+
+@screen loom 1 0
+pal LOOM
+msg BOSS_UNWEAVER onenter
+cond clear
+enemy boss_unweaver 7 3
+item seal_veil 7 6
+map
+WWWWWWWWWWWWWWWW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WFFFFFFFFFFFFFFW
+WWWWWWWOOWWWWWWW
+
 # ============================================================ TITLE BACKDROP (not playable)
 
 @screen title 0 0
@@ -607,3 +1444,4 @@ XXXXXXXXXXXXXXXX
 XXXXXXXXXXXXXXXX
 WWWWWWWWWWWWWWWW
 WWWWWWWWWWWWWWWW
+

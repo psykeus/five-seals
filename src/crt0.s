@@ -12,7 +12,8 @@
 .export _ppu_wait_nmi, _ppu_off, _ppu_on, _pad_poll
 .export _vram_adr, _vram_put, _vram_fill
 .export _oam_begin, _oam_spr, _oam_meta16, _oam_finish
-.export _rand8, _upload_chr, _mmc1_prg
+.export _rand8, _upload_chr, _mmc1_prg, _bank_copy, _upload_boss
+.exportzp _cp_src, _cp_dst, _cp_len
 .export _pal_buf, _vbuf
 .exportzp _frame_count, _pad, _pad_new, _spr_x, _spr_y, _spr_tile, _spr_attr
 .exportzp _oam_idx, _vbuf_len, _pal_dirty
@@ -60,6 +61,9 @@ oam_full:     .res 1
 rng:          .res 2
 zp_ptr:       .res 2
 zp_tmp:       .res 1
+_cp_src:      .res 2
+_cp_dst:      .res 2
+_cp_len:      .res 1
 
 .segment "BSS"
 _pal_buf:     .res 32
@@ -459,9 +463,54 @@ _upload_chr:
     lda #0
     jmp _mmc1_prg
 
+; copy cp_len (<=255) bytes from cp_src in PRG bank A to cp_dst in RAM, then return to bank 0.
+_bank_copy:
+    jsr _mmc1_prg
+    ldy #0
+@l:
+    cpy _cp_len
+    beq @d
+    lda (_cp_src),y
+    sta (_cp_dst),y
+    iny
+    bne @l
+@d:
+    lda #0
+    jmp _mmc1_prg
+
+; upload 512 bytes of boss sprite tiles (boss A) from PRG bank 1 ($A000 + A*512)
+; to the PPU address held in cp_dst. Rendering must be off.
+_upload_boss:
+    asl a
+    clc
+    adc #$A0
+    sta zp_ptr+1
+    lda #0
+    sta zp_ptr
+    lda #1
+    jsr _mmc1_prg
+    bit PPUSTATUS
+    lda _cp_dst+1
+    sta PPUADDR
+    lda _cp_dst
+    sta PPUADDR
+    ldx #2
+    ldy #0
+@l:
+    lda (zp_ptr),y
+    sta PPUDATA
+    iny
+    bne @l
+    inc zp_ptr+1
+    dex
+    bne @l
+    lda #0
+    jmp _mmc1_prg
+
 ; ------------------------------------------------------------------ CHR source
 .segment "CHRDATA"
     .incbin "../build/chr.bin"
+    .incbin "../build/boss.bin"
 
 .segment "VECTORS"
     .word nmi

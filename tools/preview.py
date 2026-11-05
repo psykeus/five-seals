@@ -49,12 +49,12 @@ def draw_tile(img, t, ox, oy, pal, transparent=False):
 
 
 def main():
-    chrdata, defines, mt = build.build_chr()
+    chrdata, defines, mt, boss = build.build_chr()
     bg = [chrdata[i * 16:(i + 1) * 16] for i in range(256)]
     sp = [chrdata[4096 + i * 16:4096 + (i + 1) * 16] for i in range(256)]
     sets = build.PALSETS
-    W = 17 * 26
-    img = Image.new('RGB', (W, 300), (40, 40, 40))
+    W = 17 * 34
+    img = Image.new("RGB", (W, 700), (40, 40, 40))
     y = 2
     for name, bgp, veil in sets:
         x = 2
@@ -106,6 +106,18 @@ def main():
         if x > W - 36:
             x = 2
             y += 36
+    # bosses
+    x = 2
+    y += 40
+    bp = build.BOSS_PALS
+    for b in range(len(bp)):
+        for fr in range(2):
+            base = (b * 2 + fr) * 16
+            img.paste(Image.new('RGB', (34, 34), (60, 50, 40)), (x, y))
+            for k in range(16):
+                t = boss[(base + k) * 16:(base + k + 1) * 16]
+                draw_tile(img, t, x + (k % 4) * 8, y + (k // 4) * 8, bp[b], True)
+            x += 36
     img = img.crop((0, 0, W, y + 40))
     img = img.resize((img.width * 3, img.height * 3), Image.NEAREST)
     img.save(os.path.join(ROOT, 'build', 'preview.png'))

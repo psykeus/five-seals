@@ -106,7 +106,7 @@ footer { font-size: 12px; color: var(--muted); }
 <div class="wrap">
   <header>
     <h1>The Five Seals</h1>
-    <div class="sub">Book I · Ember and Veil · test build</div>
+    <div class="sub">Five Arts · five temples · test build</div>
   </header>
 
   <div class="bezel">
@@ -143,28 +143,27 @@ footer { font-size: 12px; color: var(--muted); }
         <tr><td><kbd>←</kbd> <kbd>↑</kbd> <kbd>↓</kbd> <kbd>→</kbd> or <kbd>WASD</kbd></td><td>Move</td></tr>
         <tr><td><kbd>Z</kbd> or <kbd>J</kbd></td><td>B: staff strike (free)</td></tr>
         <tr><td><kbd>X</kbd> or <kbd>K</kbd></td><td>A: cast the selected Art</td></tr>
-        <tr><td><kbd>Shift</kbd></td><td>Select: switch Art</td></tr>
+        <tr><td><kbd>Shift</kbd></td><td>Select: cycle through the Arts you know</td></tr>
         <tr><td><kbd>Enter</kbd></td><td>Start: begin, pause, close text</td></tr>
       </table>
       <p class="note">Click the game screen first so it receives your keys. A USB or Bluetooth gamepad also works. On a phone, use the touch pad under the screen.</p>
     </section>
 
     <section class="panel">
-      <h2 class="veil">Route to the first seal</h2>
+      <h2 class="veil">Route through the five seals</h2>
       <ol>
-        <li>You start in the Sanctum, the walled square in the middle of the map. Walk into the stone tablet to read it.</li>
-        <li>Go north one screen, then east twice to Bramble Pass. Two rune rocks block the path north. Press A to raise the Veil, then walk through them.</li>
-        <li>At the Temple Gate, walk into the dark doorway.</li>
-        <li>Inside, go west and clear the slimes to open a door. Cross the Veil maze to the north, then defeat the knights there to learn Fire.</li>
-        <li>Back at the entrance, burn both braziers with Fire. Then use the Veil to find a hidden lava bridge, burn through the brambles, and light four braziers. Two of them are hidden behind illusion walls.</li>
-        <li>The Gale Warden only takes damage from Fire.</li>
+        <li><strong>Ember Temple.</strong> From the Sanctum, go north, then east twice to Bramble Pass. Raise the Veil (A) to walk through the rune rocks to the north. Inside, learn Fire and defeat the Gale Warden with it.</li>
+        <li><strong>Stone Temple.</strong> In the Old Wood (far northwest), burn the brambles in front of the cave. Learn Earth. Your boulder breaks cracked walls and fills pits. The Mire Serpent only takes damage from Earth.</li>
+        <li><strong>Sky Spire.</strong> Back at Bramble Pass, break the cracked rocks on the east edge. Go north to the spire. Learn Wind, a dash that crosses chasms. Dash into the Stone Colossus to damage it.</li>
+        <li><strong>Tide Temple.</strong> In the far southeast, dash across the chasm. Learn Water, which puts out walls of flame. The Cinder Drake only takes damage from Water.</li>
+        <li><strong>The Loom.</strong> With four seals, return to the Sanctum. The seal stone becomes a stair down. The Unweaver can only be hit while the Veil is up, and only with the Art that matches its current color.</li>
       </ol>
-      <p class="note">Optional: the Trial Cave west of the Sanctum, behind brambles, and a hidden heart on the southeast lake.</p>
+      <p class="note">Optional: the Trial Cave west of the Sanctum (Fire mastery), hearts on the southeast lake and in the Stone Temple, and Veil mastery in the Loom.</p>
     </section>
   </div>
 
   <section class="panel save">
-    <p><strong>Saves</strong> happen automatically at the Sanctum, the temple entrance, and when you pick up a relic. They're kept in this browser only.</p>
+    <p><strong>Saves</strong> happen automatically at the Sanctum, at every temple entrance, and when you pick up a relic. They're kept in this browser only.</p>
     <button id="eraseBtn" class="danger" type="button">Erase save</button>
   </section>
 
@@ -306,7 +305,7 @@ footer { font-size: 12px; color: var(--muted); }
   }
 
   // ---- main loop (fixed 60 Hz, independent of display refresh)
-  var running = true, last = performance.now(), acc = 0, STEP = 1000 / 60;
+  var autoPaused = false, running = true, last = performance.now(), acc = 0, STEP = 1000 / 60;
   function tick(now) {
     requestAnimationFrame(tick);
     var dt = now - last; last = now;
@@ -388,7 +387,8 @@ footer { font-size: 12px; color: var(--muted); }
   });
 
   document.addEventListener("visibilitychange", function () {
-    if (document.hidden) { storeSave(); if (running) { running = false; showStatus(); pauseBtn.textContent = "Resume"; } }
+    if (document.hidden) { storeSave(); if (running) { running = false; autoPaused = true; showStatus(); pauseBtn.textContent = "Resume"; } }
+    else if (autoPaused) { autoPaused = false; running = true; last = performance.now(); acc = 0; showStatus(); pauseBtn.textContent = "Pause"; }
   });
   window.addEventListener("pagehide", storeSave);
 })();

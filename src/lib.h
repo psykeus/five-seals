@@ -19,6 +19,13 @@ extern unsigned char sfx_req, mus_req;
 #pragma zpsym("sfx_req")
 #pragma zpsym("mus_req")
 
+extern const unsigned char* cp_src;
+extern unsigned char* cp_dst;
+extern unsigned char cp_len;
+#pragma zpsym("cp_src")
+#pragma zpsym("cp_dst")
+#pragma zpsym("cp_len")
+
 extern unsigned char pal_buf[32];
 extern unsigned char vbuf[160];
 
@@ -36,6 +43,8 @@ void __fastcall__ oam_finish(void);
 unsigned char __fastcall__ rand8(void);
 void __fastcall__ upload_chr(void);
 void __fastcall__ mmc1_prg(unsigned char bank);
+void __fastcall__ bank_copy(unsigned char bank);   /* cp_src (in bank) -> cp_dst, cp_len bytes */
+void __fastcall__ upload_boss(unsigned char n);    /* boss tiles -> PPU address in cp_dst */
 
 #define PAD_A      0x80
 #define PAD_B      0x40
